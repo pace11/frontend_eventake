@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useStoreState, useStoreDispatch } from 'easy-peasy'
-import { Form, Button, Col, Row, Alert } from 'react-bootstrap'
+import { Form, Button, Col, Row, Alert, Card } from 'react-bootstrap'
 import Layout from '../../common/components/Layout'
 
 function Signin(props) {
@@ -11,7 +11,7 @@ function Signin(props) {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
     dispatch.Signin.postSignin({ email, password })
   }
@@ -21,38 +21,41 @@ function Signin(props) {
       <Layout>
         <Row style={{ marginTop: '10px' }}>
           <Col md={{ span: 6, offset: 3 }}>
-            {
-              stateSignin.initialState &&
-              stateSignin.initialState.items &&
-              stateSignin.initialState.items.status === '200' && (
-                <Alert variant="primary">Login Success</Alert>
-              )
-            }
-            <Form onSubmit={handleSubmit} method="POST">
-              <Form.Group controlId="formGroupEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  onChange={e => setEmail(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="formGroupPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={e => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
-              <Form.Group>
-                <Button type="submit" block>
-                  Sign in
-                </Button>
-              </Form.Group>
-            </Form>
+            <Card>
+            <Card.Header className="text-center">Sign in</Card.Header>
+            <Card.Body>
+              {stateSignin.initialState &&
+                stateSignin.initialState.items &&
+                stateSignin.initialState.items.status === '200' && (
+                  <Alert variant="primary">Login Success</Alert>
+                )}
+              <Form onSubmit={handleSubmit} method="POST">
+                <Form.Group controlId="formGroupEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    onChange={e => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formGroupPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={e => setPassword(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Button type="submit" block>
+                    Sign in
+                  </Button>
+                </Form.Group>
+              </Form>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Layout>
